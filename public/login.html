@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* Login Page Specific Styles */
+        .login-page {
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 8rem 2rem 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-size: 1rem;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .login-wrapper {
+            animation: slideInLeft 0.6s ease;
+        }
+
+        .login-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+            max-width: 450px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .shield-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .login-header h2 {
+            font-size: 2.2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--light);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-forgot label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .remember-forgot a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .remember-forgot a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn-login {
+            background: var(--gradient-primary);
+            color: var(--white);
+            width: 100%;
+            padding: 0.95rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Illustration Section */
+        .illustration-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 400px;
+            animation: slideInRight 0.6s ease;
+        }
+
+        .shield {
+            font-size: 6rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.3));
+            position: relative;
+            z-index: 2;
+        }
+
+        .shield-glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            animation: bubbleFloat 4s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+        }
+
+        .bubble:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 107, 0.25);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 180, 107, 0.25);
+            top: 35%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 55px;
+            height: 55px;
+            background: rgba(180, 107, 255, 0.25);
+            bottom: 25%;
+            left: 8%;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 40px;
+            height: 40px;
+            background: rgba(107, 200, 255, 0.25);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 200, 107, 0.25);
+            top: 50%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        @keyframes bubbleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .login-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .login-box {
+                max-width: 100%;
+            }
+
+            .illustration-wrapper {
+                display: none;
+            }
+
+            .back-link {
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-page {
+                padding: 1rem;
+            }
+
+            .login-box {
+                padding: 2rem;
+                border-radius: 20px;
+            }
+
+            .login-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .back-link {
+                top: 1rem;
+                left: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .shield-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="login-container">
+            <!-- Left Side - Form -->
+            <div class="login-wrapper">
+                <div class="login-box">
+                    <div class="login-header">
+                        <div class="shield-icon">🛡️</div>
+                        <h2>Welcome Back</h2>
+                        <p>Login to continue your focus journey</p>
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="remember-forgot">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a href="forgot-password.html">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-login">Login to Dashboard</button>
+                    </form>
+
+                    <div class="signup-link">
+                        Don't have an account? <a href="register.html">Sign up here</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Illustration -->
+            <div class="illustration-wrapper">
+                <div class="shield-glow"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="shield">🛡️</div>
+            </div>
+        </div>
+    </div>
+<script>
+    const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Validation
+        if (!email || !password) {
+            alert('Please fill all fields');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // ✅ LOGIN SAVE
+        localStorage.setItem("isLoggedIn", "true");
+
+        // ✅ USER DATA SAVE (IMPORTANT)
+        localStorage.setItem("userData", JSON.stringify({
+            name: email.split("@")[0],   // email se name nikala
+            email: email,
+            role: "student"
+        }));
+
+        alert('Login successful! Redirecting to dashboard...');
+
+        // ✅ REDIRECT
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+          window.location.href = './dashboard.html';
+        }, 1000);
+    });
+</script>
+</body>
+</html>

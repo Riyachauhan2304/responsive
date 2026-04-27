@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* Register Page Specific Styles */
+        .register-page {
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .register-wrapper {
+            animation: slideInLeft 0.6s ease;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .register-box {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .rocket-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.6rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .register-header h2 {
+            font-size: 1.9rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .register-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            font-family: var(--font-primary);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: var(--light);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23667eea' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
+            padding-right: 2.3rem;
+        }
+
+        .btn-register {
+            background: var(--gradient-primary);
+            color: var(--white);
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+            margin-top: 0.8rem;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Illustration Section */
+        .illustration-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 400px;
+            animation: slideInRight 0.6s ease;
+        }
+
+        .rocket {
+            font-size: 6rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.3));
+            position: relative;
+            z-index: 2;
+        }
+
+        .rocket-flame {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: flicker 0.4s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            animation: bubbleFloat 4s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+        }
+
+        .bubble:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 107, 0.25);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 180, 107, 0.25);
+            top: 35%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 55px;
+            height: 55px;
+            background: rgba(180, 107, 255, 0.25);
+            bottom: 25%;
+            left: 8%;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 40px;
+            height: 40px;
+            background: rgba(107, 200, 255, 0.25);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 200, 107, 0.25);
+            top: 50%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        @keyframes bubbleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .register-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .register-box {
+                max-width: 100%;
+            }
+
+            .illustration-wrapper {
+                display: none;
+            }
+
+            .back-link {
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .register-page {
+                padding: 1rem;
+                min-height: auto;
+            }
+
+            .register-container {
+                gap: 1.5rem;
+            }
+
+            .register-wrapper {
+                justify-content: center;
+            }
+
+            .register-box {
+                padding: 1.8rem 1.8rem;
+                max-width: 100%;
+            }
+
+            .register-header h2 {
+                font-size: 1.7rem;
+            }
+
+            .back-link {
+                top: 1rem;
+                left: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .rocket-icon {
+                font-size: 2.2rem;
+            }
+
+            .illustration-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-page">
+       <a href="../index.html" class="back-link">← Back to Home</a>
+
+        <div class="register-container">
+            <!-- Left Side - Form -->
+            <div class="register-wrapper">
+                <div class="register-box">
+                    <div class="register-header">
+                        <div class="rocket-icon">🚀</div>
+                        <h2>Join MindGuard</h2>
+                        <p>Start your journey to better focus</p>
+                    </div>
+
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role">I am a...</label>
+                            <select id="role" required>
+                                <option value="">Select your role</option>
+                                <option value="student">Student</option>
+                                <option value="professional">Professional</option>
+                                <option value="entrepreneur">Entrepreneur</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-register">Create Account</button>
+                    </form>
+
+                    <div class="login-link">
+                        Already have an account? <a href="login.html">Log in here</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Illustration -->
+            <div class="illustration-wrapper">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="rocket-flame">🔥</div>
+                <div class="rocket">🚀</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const registerForm = document.getElementById('registerForm');
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            // Validation
+            if (!fullname || !email || !password || !role) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
+
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Show success message
+            alert(`Welcome ${fullname}! Your account has been created successfully.`);
+            
+            // Reset form
+            registerForm.reset();
+            
+            // Redirect after 1 second
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

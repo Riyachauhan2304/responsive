@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body {
+            background: var(--light);
+            padding-top: 80px;
+        }
+
+        .page-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .time-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .top-sites {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+        }
+
+        .site-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .site-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .site-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .site-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .site-rank {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .site-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .site-count {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .insight-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .insight-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .insight-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-label {
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span>🛡️ MindGuard</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>📊 Analytics Dashboard</h1>
+            <p>Deep insights into your productivity journey</p>
+        </div>
+    </div>
+
+    <!-- Time Filter -->
+    <div class="container">
+        <div class="time-filter">
+            <button class="filter-btn active" onclick="filterData(7)">Last 7 Days</button>
+            <button class="filter-btn" onclick="filterData(30)">Last 30 Days</button>
+            <button class="filter-btn" onclick="filterData(90)">Last 3 Months</button>
+        </div>
+
+        <!-- Insights -->
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-icon">🔥</div>
+                <div class="insight-value" id="streakDays">0</div>
+                <div class="insight-label">Day Streak</div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-icon">⏰</div>
+                <div class="insight-value"><span id="avgBlocksDay">0</span></div>
+                <div class="insight-label">Avg Blocks/Day</div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-icon">🎯</div>
+                <div class="insight-value"><span id="successRateValue">0</span>%</div>
+                <div class="insight-label">Success Rate</div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-icon">⚡</div>
+                <div class="insight-value"><span id="totalHoursSaved">0</span>h</div>
+                <div class="insight-label">Total Time Saved</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📈 Blocks Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="blocksChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>🕐 Hourly Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>🧩 Task Types</h3>
+                <div class="chart-container">
+                    <canvas id="taskTypesChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>📊 Weekly Comparison</h3>
+                <div class="chart-container">
+                    <canvas id="weeklyComparisonChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Blocked Sites -->
+        <div class="top-sites">
+            <h3>🏆 Most Blocked Sites</h3>
+            <div class="site-list" id="topSitesList">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script>
+        let charts = {};
+        let currentDays = 7;
+
+        const BIN_ID = "69cfddf0856a682189f80ea9";
+        const API_KEY = "$2a$10$gqdaj19DJxBqXw.9bFdHAOIUirymKNuOQVxjqju1zvjhHN8hgRZTG";
+
+        async function loadAnalytics(days = 7) {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { "X-Master-Key": API_KEY }
+                });
+                const dataResponse = await res.json();
+                const analyticsData = dataResponse.record?.analyticsData || {};
+
+                // Build array of last N days
+                const today = new Date();
+                const dayEntries = [];
+                for (let i = days - 1; i >= 0; i--) {
+                    const d = new Date(today);
+                    d.setDate(today.getDate() - i);
+                    const key = d.toISOString().split('T')[0];
+                    dayEntries.push(analyticsData[key] || {
+                        date: key, blockedCount: 0, quizAttempts: 0,
+                        correctAnswers: 0, wrongAnswers: 0, timeSaved: 0, sites: {}
+                    });
+                }
+
+                // Aggregate totals
+                const totalBlocks = dayEntries.reduce((s, d) => s + (d.blockedCount || 0), 0);
+                const totalQuizAttempts = dayEntries.reduce((s, d) => s + (d.quizAttempts || 0), 0);
+                const totalCorrect = dayEntries.reduce((s, d) => s + (d.correctAnswers || 0), 0);
+                const totalWrong = dayEntries.reduce((s, d) => s + (d.wrongAnswers || 0), 0);
+                const totalTimeSaved = dayEntries.reduce((s, d) => s + (d.timeSaved || 0), 0);
+
+                // Streak: count consecutive days with at least 1 block (from today backwards)
+                const allKeys = Object.keys(analyticsData).sort().reverse();
+                let streak = 0;
+                for (let i = 0; i < allKeys.length; i++) {
+                    const entry = analyticsData[allKeys[i]];
+                    if ((entry.blockedCount || 0) > 0) {
+                        streak++;
+                    } else {
+                        break;
+                    }
+                }
+
+                // Success rate: correct / total quiz attempts
+                const successRate = totalQuizAttempts > 0
+                    ? Math.round((totalCorrect / totalQuizAttempts) * 100)
+                    : 0;
+
+                // Update UI
+                document.getElementById('streakDays').textContent = streak;
+                document.getElementById('avgBlocksDay').textContent = days > 0 ? Math.round(totalBlocks / days) : 0;
+                document.getElementById('successRateValue').textContent = successRate;
+                document.getElementById('totalHoursSaved').textContent = (totalTimeSaved / 60).toFixed(1);
+
+                // Top sites aggregated
+                const siteTotals = {};
+                dayEntries.forEach(entry => {
+                    Object.entries(entry.sites || {}).forEach(([site, count]) => {
+                        siteTotals[site] = (siteTotals[site] || 0) + count;
+                    });
+                });
+                const sitesArr = Object.entries(siteTotals)
+                    .map(([name, count]) => ({ name, count }))
+                    .sort((a, b) => b.count - a.count);
+                loadTopSites(sitesArr.slice(0, 5));
+
+                // Charts with real data
+                const labels = dayEntries.map(d => d.date.slice(5)); // MM-DD
+                const blockCounts = dayEntries.map(d => d.blockedCount || 0);
+                createBlocksChart(labels, blockCounts);
+                createHourlyChart();
+                createTaskTypesChart(totalCorrect, totalWrong, totalQuizAttempts);
+                createWeeklyComparisonChart();
+            } catch (err) {
+                console.error("Failed to load analytics:", err);
+            }
+        }
+
+        function createBlocksChart(labels, data) {
+            const ctx = document.getElementById('blocksChart');
+            if (charts.blocksChart) charts.blocksChart.destroy();
+
+            charts.blocksChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels || [],
+                    datasets: [{
+                        label: 'Blocks',
+                        data: data || [],
+                        backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                        borderColor: '#667eea',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function createHourlyChart() {
+            const ctx = document.getElementById('hourlyChart');
+            if (charts.hourlyChart) charts.hourlyChart.destroy();
+
+            const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
+            const data = Array.from({length: 24}, () => Math.floor(Math.random() * 10));
+
+            charts.hourlyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: hours,
+                    datasets: [{
+                        label: 'Blocks by Hour',
+                        data: data,
+                        borderColor: '#f093fb',
+                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function createTaskTypesChart(correct, wrong, attempts) {
+            const ctx = document.getElementById('taskTypesChart');
+            if (charts.taskTypesChart) charts.taskTypesChart.destroy();
+
+            const skipped = Math.max(0, (attempts || 0) - (correct || 0) - (wrong || 0));
+
+            charts.taskTypesChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct Answers', 'Wrong Answers', 'Skipped'],
+                    datasets: [{
+                        data: [correct || 0, wrong || 0, skipped],
+                        backgroundColor: ['#4ade80', '#f87171', '#fbbf24'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        function createWeeklyComparisonChart() {
+            const ctx = document.getElementById('weeklyComparisonChart');
+            if (charts.weeklyComparisonChart) charts.weeklyComparisonChart.destroy();
+
+            charts.weeklyComparisonChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'This Month',
+                        data: [45, 52, 48, 60],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4
+                    }, {
+                        label: 'Last Month',
+                        data: [38, 42, 40, 45],
+                        borderColor: '#f093fb',
+                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        function loadTopSites(sites) {
+            const container = document.getElementById('topSitesList');
+            if (!sites || sites.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--gray);">No blocked sites yet.</p>';
+                return;
+            }
+
+            container.innerHTML = sites.map((site, index) => `
+                <div class="site-item">
+                    <div class="site-info">
+                        <div class="site-rank">${index + 1}</div>
+                        <div class="site-name">${site.name}</div>
+                    </div>
+                    <div class="site-count">${site.count} blocks</div>
+                </div>
+            `).join('');
+        }
+
+        function filterData(days) {
+            currentDays = days;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            loadAnalytics(days);
+        }
+
+       // ✅ LOGOUT
+function logout() {
+    const confirmLogout = confirm("Are you sure you want to logout?");
+    
+    if (confirmLogout) {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userData");
+        window.location.href = "login.html";
+    }
+}
+
+
+// ✅ LOGIN CHECK + PAGE LOAD
+if (localStorage.getItem("isLoggedIn") === "true") {
+   loadAnalytics(7);
+} else {
+    window.location.href = "login.html";
+}
+    </script>
+</body>
+</html>

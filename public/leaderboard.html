@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body {
+            background: var(--light);
+            padding-top: 80px;
+        }
+
+        .page-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .leaderboard-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .your-rank {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rank-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .rank-badge {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .rank-details h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .rank-details p {
+            color: var(--gray);
+        }
+
+        .rank-score {
+            text-align: right;
+        }
+
+        .rank-score h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .rank-score p {
+            color: var(--gray);
+        }
+
+        .top-three {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: end;
+        }
+
+        .podium {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .podium:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .podium.first {
+            order: 2;
+            transform: scale(1.1);
+        }
+
+        .podium.second {
+            order: 1;
+        }
+
+        .podium.third {
+            order: 3;
+        }
+
+        .podium-crown {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+        }
+
+        .podium-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .podium-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .podium-score {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .leaderboard-list {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--light);
+            transition: all 0.3s;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-item:hover {
+            background: var(--light);
+        }
+
+        .item-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .item-rank {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            border-radius: 50%;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .item-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .item-info h4 {
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+
+        .item-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .item-score {
+            text-align: right;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .score-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .top-three {
+                grid-template-columns: 1fr;
+            }
+
+            .podium.first,
+            .podium.second,
+            .podium.third {
+                order: 0;
+                transform: scale(1);
+            }
+
+            .your-rank {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .rank-score {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span>🛡️ MindGuard</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>🏆 Global Leaderboard</h1>
+        <p>Compete with focus warriors worldwide</p>
+    </div>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="leaderboard-tabs">
+            <button class="tab-btn active" onclick="switchTab('weekly')">This Week</button>
+            <button class="tab-btn" onclick="switchTab('monthly')">This Month</button>
+            <button class="tab-btn" onclick="switchTab('alltime')">All Time</button>
+        </div>
+
+        <!-- Your Rank -->
+        <div class="your-rank">
+            <div class="rank-info">
+                <div class="rank-badge" id="yourRank">#?</div>
+                <div class="rank-details">
+                    <h3 id="yourName">Your Name</h3>
+                    <p>Your current ranking</p>
+                </div>
+            </div>
+            <div class="rank-score">
+                <h2 id="yourScore">0</h2>
+                <p>Focus Score</p>
+            </div>
+        </div>
+
+        <!-- Top 3 Podium -->
+        <div class="top-three">
+            <div class="podium second">
+                <div class="podium-avatar">👨‍💼</div>
+                <div class="podium-name">Alex Johnson</div>
+                <div class="podium-score">892</div>
+                <p style="color: var(--gray); margin-top: 0.5rem;">🥈 2nd Place</p>
+            </div>
+
+            <div class="podium first">
+                <div class="podium-crown">👑</div>
+                <div class="podium-avatar">👩‍🎨</div>
+                <div class="podium-name">Sarah Chen</div>
+                <div class="podium-score">945</div>
+                <p style="color: var(--gray); margin-top: 0.5rem;">🥇 Champion</p>
+            </div>
+
+            <div class="podium third">
+                <div class="podium-avatar">👨‍🔬</div>
+                <div class="podium-name">Marcus Lee</div>
+                <div class="podium-score">876</div>
+                <p style="color: var(--gray); margin-top: 0.5rem;">🥉 3rd Place</p>
+            </div>
+        </div>
+        <div class="leaderboard-list">
+            <h3 style="margin-bottom: 2rem; color: var(--dark);">🌟 Top 20 Rankings</h3>
+            <div id="leaderboardList">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sampleUsers = [
+            { name: 'Riya', score: 863, avatar: '👩‍💻' },
+            { name: 'Aman', score: 847, avatar: '👨‍🎓' },
+            { name: 'Sonam', score: 831, avatar: '👩‍🏫' },
+            { name: 'Rishi', score: 819, avatar: '👨‍⚕️' },
+            { name: 'kajal', score: 805, avatar: '👩‍🔬' },
+            { name: 'Chetna', score: 792, avatar: '👨‍💼' },
+            { name: 'Shritu', score: 778, avatar: '👩‍🎨' },
+            { name: 'Komal', score: 765, avatar: '👨‍🏫' },
+            { name: 'Hemsuta', score: 751, avatar: '👩‍💼' },
+            { name: 'Rohan', score: 738, avatar: '👨‍🔬' },
+            { name: 'Supriya', score: 724, avatar: '👩‍⚕️' },
+            { name: 'Arpit', score: 710, avatar: '👨‍🎨' },
+            { name: 'Nikita', score: 697, avatar: '👩‍💻' },
+            { name: 'Mansi', score: 683, avatar: '👨‍🎓' },
+            { name: 'Rashi', score: 670, avatar: '👩‍🏫' },
+            { name: 'Ananya', score: 656, avatar: '👨‍💼' },
+            { name: 'Zara', score: 642, avatar: '👩‍🔬' }
+        ];
+
+        async function loadLeaderboard() {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const profileResult = await FirebaseHelper.getUserProfile(user.uid);
+            if (profileResult.success) {
+                const data = profileResult.data;
+                document.getElementById('yourName').textContent = data.name;
+                document.getElementById('yourScore').textContent = data.focusScore || 50;
+       
+                const userRank = Math.floor(Math.random() * 100) + 1;
+                document.getElementById('yourRank').textContent = `#${userRank}`;
+            }
+
+            renderLeaderboard();
+        }
+
+        function renderLeaderboard() {
+            const container = document.getElementById('leaderboardList');
+            let html = '';
+
+            sampleUsers.forEach((user, index) => {
+                html += `
+                    <div class="leaderboard-item">
+                        <div class="item-left">
+                            <div class="item-rank">${index + 4}</div>
+                            <div class="item-avatar">${user.avatar}</div>
+                            <div class="item-info">
+                                <h4>${user.name}</h4>
+                                <p>${Math.floor(Math.random() * 500) + 100} blocks this week</p>
+                            </div>
+                        </div>
+                        <div class="item-score">
+                            <div class="score-value">${user.score}</div>
+                            <div class="score-label">Focus Score</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            console.log('Switching to:', tab);
+        }
+
+function logout() {
+    const confirmLogout = confirm("Are you sure you want to logout?");
+    
+    if (confirmLogout) {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userData");
+        window.location.href = "login.html";
+    }
+}
+
+if (localStorage.getItem("isLoggedIn") === "true") {
+    loadLeaderboard();   
+} else {
+    window.location.href = "login.html";
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .about-hero {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .story-section {
+            padding: 5rem 0;
+            background: var(--white);
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .story-content h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark);
+        }
+
+        .story-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .mission-vision {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .mission-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .mission-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .mission-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .values-section {
+            padding: 5rem 0;
+            background: var(--white);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            background: var(--white);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .stats-section {
+            padding: 5rem 0;
+            background: var(--gradient-primary);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .team-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .team-role {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span>🛡️ MindGuard</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="about-hero">
+        <h1>👋 About MindGuard</h1>
+        <p>Empowering people to take control of their digital lives</p>
+    </div>
+
+    <!-- Story -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <h2>Our Story</h2>
+                <p>MindGuard was born from a simple observation: traditional website blockers were too easy to bypass and too frustrating to use. They treated users like they couldn't be trusted with their own decisions.</p>
+                
+                <p>We believed there had to be a better way—one that respected your autonomy while helping you build better habits. That's why we created MindGuard: not just a blocker, but a focus companion that challenges you to think before you click.</p>
+
+                <h2>The Problem We're Solving</h2>
+                <p>In today's hyper-connected world, digital distractions are everywhere. Social media, streaming platforms, and endless content compete for your attention every second. Studies show the average person loses over 2 hours daily to mindless browsing.</p>
+
+                <p>But simply blocking websites doesn't address the root cause. You need tools that help you build awareness and make conscious choices about your time.</p>
+
+                <h2>Our Approach</h2>
+                <p>MindGuard uses AI to detect distracting content in real-time. When you try to access a blocked site, instead of showing a boring "Access Denied" message, we present you with an engaging microtask.</p>
+
+                <p>These challenges—from breathing exercises to brain teasers—make you pause and reflect: "Do I really need this right now?" Most of the time, the answer is no. And when it's yes, you've earned access mindfully.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="container">
+            <h2 class="section-title">Mission & Vision</h2>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To help people reclaim their focus and build healthier digital habits through intelligent, respectful technology that empowers rather than restricts.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">🔮</div>
+                    <h3>Our Vision</h3>
+                    <p>A world where people are in control of their technology, not the other way around. Where focus is valued and digital wellbeing is a priority for everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h4>Respect</h4>
+                    <p>We respect your autonomy and intelligence</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <h4>Privacy</h4>
+                    <p>Your data is yours, always encrypted and secure</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">💡</div>
+                    <h4>Innovation</h4>
+                    <p>Constantly improving with AI and user feedback</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🌟</div>
+                    <h4>Excellence</h4>
+                    <p>Delivering quality in every feature we build</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🌍</div>
+                    <h4>Accessibility</h4>
+                    <p>Free tools for everyone, everywhere</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">❤️</div>
+                    <h4>Empathy</h4>
+                    <p>Understanding the struggle with distractions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>10K+</h3>
+                    <p>Active Users</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50K+</h3>
+                    <p>Hours Saved</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1M+</h3>
+                    <p>Distractions Blocked</p>
+                </div>
+                <div class="stat-item">
+                    <h3>85%</h3>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet the Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">👩‍💼</div>
+                    <div class="team-name">Riya Chauhan</div>
+                    <div class="team-role">Founder & CEO</div>
+                    <p class="team-bio">Former productivity coach who turned personal struggles into a solution for millions.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">👩‍🔬</div>
+                    <div class="team-name">Shritu Kumari</div>
+                    <div class="team-role">AI Lead</div>
+                    <p class="team-bio">PhD in Machine Learning, passionate about ethical AI that serves humanity.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">👩‍💼</div>
+                    <div class="team-name">Chetna Singh</div>
+                    <div class="team-role">Design Director</div>
+                    <p class="team-bio">Believes great design should empower, not overwhelm users.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">👨‍💻</div>
+                    <div class="team-name">Aman Rawat</div>
+                    <div class="team-role">Community Manager</div>
+                    <p class="team-bio">Connecting with users and ensuring their voices shape our product.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Join Our Mission</h2>
+            <p>Be part of the movement to reclaim focus in the digital age</p>
+            <a href="register.html" class="btn btn-large btn-primary">Get Started Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>MindGuard</h4>
+                    <p>AI-powered focus firewall</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MindGuard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .features-hero {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .features-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .features-hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-section {
+            padding: 5rem 0;
+        }
+
+        .feature-section:nth-child(even) {
+            background: var(--white);
+        }
+
+        .feature-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .feature-content.reverse {
+            direction: rtl;
+        }
+
+        .feature-content.reverse > * {
+            direction: ltr;
+        }
+
+        .feature-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-text p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .feature-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .feature-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .comparison-table {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+
+        th {
+            background: var(--gradient-primary);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        td:first-child {
+            font-weight: 600;
+        }
+
+        .check {
+            color: var(--success);
+            font-size: 1.5rem;
+        }
+
+        .cross {
+            color: var(--danger);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .feature-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span>🛡️ MindGuard</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="features-hero">
+        <h1>🚀 Powerful Features</h1>
+        <p>Everything you need to reclaim your focus and boost productivity</p>
+    </div>
+
+    <!-- Feature: AI Blocking -->
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>🤖 AI-Powered Blocking</h2>
+                    <p>Our intelligent AI analyzes websites in real-time to determine their distraction potential. No more manual configuration—MindGuard learns and adapts to your browsing patterns.</p>
+                    <ul class="feature-list">
+                        <li>Real-time risk assessment</li>
+                        <li>Machine learning algorithms</li>
+                        <li>Context-aware blocking</li>
+                        <li>Automatic categorization</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="./assets/images/Aiblocking.webp" alt="AI Blocking" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature: Microtasks -->
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-content reverse">
+                <div class="feature-text">
+                    <h2>🧩 Interactive Microtasks</h2>
+                    <p>Instead of simply blocking sites, MindGuard challenges you with engaging tasks that make you think twice before accessing distractions.</p>
+                    <ul class="feature-list">
+                        <li>Breathing exercises for mindfulness</li>
+                        <li>Brain-training quizzes</li>
+                        <li>Typing speed challenges</li>
+                        <li>Logic puzzles and riddles</li>
+                        <li>Reflective prompts</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="./assets/images/Microtask.webp" alt="Microtasks" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature: Analytics -->
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>📊 Detailed Analytics</h2>
+                    <p>Track your progress with comprehensive analytics and insights. Visualize your focus journey with beautiful charts and meaningful metrics.</p>
+                    <ul class="feature-list">
+                        <li>Daily, weekly, and monthly reports</li>
+                        <li>Focus score tracking</li>
+                        <li>Time saved calculations</li>
+                        <li>Most blocked sites analysis</li>
+                        <li>Success rate monitoring</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="./assets/images/Productivity.webp" alt="Analytics" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature: Smart Modes -->
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-content reverse">
+                <div class="feature-text">
+                    <h2>🌙 Smart Modes</h2>
+                    <p>MindGuard automatically adjusts blocking intensity based on context, ensuring you stay productive when it matters most.</p>
+                    <ul class="feature-list">
+                        <li>Holiday detection (automatic soft mode)</li>
+                        <li>Focus hours configuration</li>
+                        <li>Weekend relaxation mode</li>
+                        <li>Custom scheduling</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="./assets/images/Smart.webp" alt="Smart Modes" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="feature-section" style="background: var(--light);">
+        <div class="container">
+            <h2 class="section-title">MindGuard vs Traditional Blockers</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>MindGuard</th>
+                            <th>Traditional Blockers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI-Powered Detection</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Interactive Challenges</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Holiday Detection</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Detailed Analytics</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Focus Score System</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Motivational Insights</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Adaptive Learning</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Experience the Difference?</h2>
+            <p>Join thousands who have transformed their digital habits</p>
+            <a href="register.html" class="btn btn-large btn-primary">Get Started Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>MindGuard</h4>
+                    <p>AI-powered focus firewall</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MindGuard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - MindGuard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body {
+            background: var(--light);
+            padding-top: 80px;
+        }
+
+        .page-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .settings-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .setting-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .setting-card h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .setting-item {
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .setting-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .setting-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .setting-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            border-radius: 30px;
+            transition: 0.4s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        input:checked + .toggle-slider {
+            background: var(--primary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .danger-zone {
+            border: 2px solid var(--danger);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .profile-info h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .profile-info p {
+            color: var(--gray);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span>🛡️ MindGuard</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>⚙️ Settings</h1>
+            <p>Customize your MindGuard experience</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="successAlert" class="alert alert-success"></div>
+        
+        <div class="settings-grid">
+            <!-- Profile -->
+            <div class="setting-card">
+                <h3>👤 Profile</h3>
+                <div class="profile-section">
+                    <div class="profile-avatar" id="profileAvatar">👤</div>
+                    <div class="profile-info">
+                        <h4 id="profileName">Loading...</h4>
+                        <p id="profileEmail">email@example.com</p>
+                        <p style="margin-top: 0.5rem;">
+                            <strong>Role:</strong> <span id="profileRole">Student</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Hours -->
+            <div class="setting-card">
+                <h3>⏰ Focus Hours</h3>
+                <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                    Set your primary focus hours when strict blocking applies
+                </p>
+                
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <input type="time" id="focusStart" class="form-input" value="09:00">
+                </div>
+
+                <div class="form-group">
+                    <label>End Time</label>
+                    <input type="time" id="focusEnd" class="form-input" value="17:00">
+                </div>
+            </div>
+
+            <!-- Blocking Preferences -->
+            <div class="setting-card">
+                <h3>🎯 Blocking Preferences</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Strict Mode</div>
+                            <div class="setting-description">Block sites 24/7, even outside focus hours</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="strictMode" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Weekend Mode</div>
+                            <div class="setting-description">Apply softer rules on weekends</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="weekendMode">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Smart Notifications</div>
+                            <div class="setting-description">Get motivational alerts and reminders</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notifications" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance -->
+            <div class="setting-card">
+                <h3>🎨 Appearance</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Dark Mode</div>
+                            <div class="setting-description">Use dark theme for better night viewing</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkMode">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>Language</label>
+                    <select id="language" class="form-select">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="setting-card">
+                <h3>🌍 Location</h3>
+                <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                    Used for holiday detection and time zones
+                </p>
+                
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="country" class="form-select">
+                        <option value="IN">India</option>
+                        <option value="US">United States</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <button class="btn-save" onclick="saveSettings()">
+                💾 Save All Settings
+            </button>
+
+            <!-- Danger Zone -->
+            <div class="setting-card danger-zone">
+                <h3 style="color: var(--danger);">⚠️ Danger Zone</h3>
+                <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                    These actions are irreversible. Proceed with caution.
+                </p>
+                
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn-danger" onclick="clearData()">
+                        🗑️ Clear All Data
+                    </button>
+                    <button class="btn-danger" onclick="deleteAccount()">
+                        ❌ Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadSettings() {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load profile
+            const profileResult = await FirebaseHelper.getUserProfile(user.uid);
+            if (profileResult.success) {
+                const data = profileResult.data;
+                document.getElementById('profileName').textContent = data.name;
+                document.getElementById('profileEmail').textContent = data.email;
+                document.getElementById('profileRole').textContent = data.role.charAt(0).toUpperCase() + data.role.slice(1);
+                document.getElementById('profileAvatar').textContent = data.name.charAt(0).toUpperCase();
+            }
+
+            // Load settings
+            const settingsResult = await FirebaseHelper.getUserSettings(user.uid);
+            if (settingsResult.success) {
+                const settings = settingsResult.settings;
+                document.getElementById('focusStart').value = settings.focusHoursStart || '09:00';
+                document.getElementById('focusEnd').value = settings.focusHoursEnd || '17:00';
+                document.getElementById('strictMode').checked = settings.strictMode !== false;
+                document.getElementById('darkMode').checked = settings.darkMode === true;
+            }
+        }
+
+        async function saveSettings() {
+            const user = firebase.auth().currentUser;
+            if (!user) return;
+
+            const settings = {
+                focusHoursStart: document.getElementById('focusStart').value,
+                focusHoursEnd: document.getElementById('focusEnd').value,
+                strictMode: document.getElementById('strictMode').checked,
+                darkMode: document.getElementById('darkMode').checked,
+                weekendMode: document.getElementById('weekendMode').checked,
+                notifications: document.getElementById('notifications').checked
+            };
+
+            const result = await FirebaseHelper.updateSettings(user.uid, settings);
+            
+            if (result.success) {
+                const alert = document.getElementById('successAlert');
+                alert.textContent = '✅ Settings saved successfully!';
+                alert.style.display = 'block';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear all your data? This will delete all logs, rules, and history.')) {
+                alert('Data cleared! (In production, this would delete all user data)');
+            }
+        }
+
+        function deleteAccount() {
+            if (confirm('⚠️ WARNING: This will permanently delete your account and all data. This action cannot be undone. Are you absolutely sure?')) {
+                const confirmation = prompt('Type "DELETE" to confirm:');
+                if (confirmation === 'DELETE') {
+                    firebase.auth().currentUser.delete().then(() => {
+                        alert('Account deleted successfully');
+                        window.location.href = 'index.html';
+                    }).catch(error => {
+                        alert('Error deleting account: ' + error.message);
+                    });
+                }
+            }
+        }
+
+        function logout() {
+        // ✅ LOGOUT
+function logout() {
+    const confirmLogout = confirm("Are you sure you want to logout?");
+    
+    if (confirmLogout) {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userData");
+        window.location.href = "login.html";
+    }
+}
+
+if (localStorage.getItem("isLoggedIn") === "true") {
+    loadStatistics();
+} else {
+    window.location.href = "login.html";
+}
+        
+    </script>
+</body>
+</html>
