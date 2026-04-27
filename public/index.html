@@ -68,6 +68,13 @@
                 <img src="assets/images/logo.webp" alt="MindGuard" width="40" height="40" loading="eager">
                 <span>MindGuard</span>
             </div>
+            <!-- Hamburger Menu Toggle -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <!-- Navigation Menu -->
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="features.html">Features</a></li>
@@ -241,6 +248,48 @@
     </footer>
     <!-- Lazy loading for images -->
     <script src="assets/js/lazy-load.js" defer></script>
+    
+    <!-- Responsive Navigation Script -->
+    <script>
+        // Hamburger Menu Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle) {
+            navToggle.addEventListener('click', function() {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when a link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = document.querySelector('.navbar').contains(event.target);
+                if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

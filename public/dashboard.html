@@ -6,16 +6,17 @@
     <title>Dashboard - MindGuard</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
+        /* RESPONSIVE DASHBOARD STYLES */
         body {
             background: var(--light);
-            padding-top: 80px;
+            padding-top: clamp(60px, 10vw, 80px);
         }
 
         .dashboard-header {
             background: var(--gradient-primary);
             color: var(--white);
-            padding: 3rem 0;
-            margin-bottom: 3rem;
+            padding: clamp(2rem, 5vw, 3rem) 0;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
         }
 
         .header-content {
@@ -23,34 +24,56 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: clamp(1rem, 3vw, 2rem);
         }
 
         .welcome-text h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
         }
 
         .welcome-text p {
             opacity: 0.9;
+            font-size: clamp(0.85rem, 2vw, 1rem);
         }
 
         .header-actions {
             display: flex;
-            gap: 1rem;
+            gap: clamp(0.5rem, 2vw, 1rem);
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .header-actions button {
+            padding: clamp(0.6rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            font-weight: 600;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .header-actions button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 80vw, 280px), 1fr));
+            gap: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: clamp(2rem, 5vw, 3rem);
         }
 
         .stat-card {
             background: var(--white);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            border-radius: clamp(12px, 3vw, 20px);
             box-shadow: var(--shadow-md);
             transition: all 0.3s;
             position: relative;
@@ -88,56 +111,59 @@
         }
 
         .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: clamp(0.7rem, 2vw, 1rem);
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
         }
 
         .stat-label {
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
         }
 
         .chart-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(300px, 80vw, 450px), 1fr));
+            gap: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: clamp(2rem, 5vw, 3rem);
         }
 
         .chart-card {
             background: var(--white);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            border-radius: clamp(12px, 3vw, 20px);
             box-shadow: var(--shadow-md);
+            overflow-x: auto;
         }
 
         .chart-card h3 {
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
             color: var(--dark);
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
         }
 
         .chart-container {
             position: relative;
-            height: 300px;
+            height: clamp(250px, 50vw, 350px);
+            width: 100%;
         }
 
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 80vw, 220px), 1fr));
+            gap: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: clamp(2rem, 5vw, 3rem);
         }
 
         .action-card {
             background: var(--white);
-            padding: 1.5rem;
-            border-radius: 16px;
+            padding: clamp(1rem, 2.5vw, 1.5rem);
+            border-radius: clamp(12px, 3vw, 16px);
             box-shadow: var(--shadow-sm);
             text-align: center;
             transition: all 0.3s;
@@ -150,37 +176,38 @@
         }
 
         .action-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
         }
 
         .action-card h4 {
             color: var(--dark);
-            margin-bottom: 0.5rem;
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
         }
 
         .action-card p {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.9rem);
         }
 
         .motivation-card {
             background: var(--gradient-primary);
             color: var(--white);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border-radius: clamp(12px, 3vw, 20px);
             box-shadow: var(--shadow-lg);
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
         }
 
         .motivation-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: clamp(0.7rem, 2vw, 1rem);
         }
 
         .motivation-card p {
-            font-size: 1.2rem;
+            font-size: clamp(0.95rem, 2.5vw, 1.2rem);
             font-style: italic;
             opacity: 0.95;
         }
@@ -196,6 +223,116 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
+        }
+
+        /* Responsive Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+
+        table th, table td {
+            padding: clamp(0.5rem, 1.5vw, 1rem);
+            text-align: left;
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        table th {
+            background: var(--light);
+            font-weight: 600;
+        }
+
+        /* Mobile: 480px and below */
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-actions button {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-section {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Tablet: 481px - 768px */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .chart-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Laptop: 769px - 1024px */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .chart-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Large Desktop: 1025px+ */
+        @media (min-width: 1025px) {
+            .header-content {
+                flex-wrap: nowrap;
+            }
+
+            .header-actions {
+                width: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .chart-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .loading-overlay .spinner {
@@ -225,12 +362,19 @@
             <div class="nav-brand">
                 <span>🛡️ MindGuard</span>
             </div>
+            <!-- Hamburger Menu Toggle -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <!-- Navigation Menu -->
             <ul class="nav-menu">
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="analytics.html">Analytics</a></li>
                 <li><a href="rules.html">Rules</a></li>
                 <li><a href="settings.html">Settings</a></li>
-               <a href="#" onclick="logout()" class="btn btn-small">Logout</a>
+                <li><a href="#" onclick="logout()" class="btn btn-small">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -463,6 +607,45 @@
         window.location.href = "login.html";
     }
 }
+
+    // Hamburger Menu Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle) {
+        navToggle.addEventListener('click', function() {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = document.querySelector('.navbar').contains(event.target);
+            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    }
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 10) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
     loadDashboard();
 </script>
 </script>
